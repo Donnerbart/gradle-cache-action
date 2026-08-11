@@ -1,13 +1,15 @@
 # Gradle Cache Action
 
-[![CI Status](https://github.com/burrunan/gradle-cache-action/workflows/CI/badge.svg)](https://github.com/burrunan/gradle-cache-action/actions)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/burrunan/gradle-cache-action?label=release)
+[![CI Status](https://github.com/Donnerbart/gradle-cache-action/workflows/CI/badge.svg)](https://github.com/Donnerbart/gradle-cache-action/actions)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Donnerbart/gradle-cache-action?label=release)
+
+Fork of [burrunan/gradle-cache-action](https://github.com/burrunan/gradle-cache-action).
 
 This is a GitHub Action for caching Gradle caches.
 In other words, this is [@actions/cache](https://github.com/actions/cache) customized for Gradle.
 
 Key improvements over [@actions/cache](https://github.com/actions/cache) and the official [gradle/actions/setup-gradle](https://github.com/gradle/actions/blob/main/docs/setup-gradle.md) are:
-- 🆓 100% MIT-licensed. Since `setup-gradle@v6`, the default `enhanced` caching uses the proprietary `gradle-actions-caching` library. `gradle-cache-action` stays open source end to end.
+- 🆓 100% open source, Apache-2.0. Since `setup-gradle@v6`, the default `enhanced` caching uses the proprietary `gradle-actions-caching` library. `gradle-cache-action` stays open source end to end.
 - 🚀 Real Gradle remote build cache backend (pulls only the entries the build needs). `setup-gradle` snapshots the whole Gradle User Home, including `caches/build-cache-1`, as a single blob.
 - 🎉 Multiple remote caches via [gradle-multi-cache](https://github.com/burrunan/gradle-multi-cache), so GitHub Actions cache can run alongside S3 or any other backend.
 - 👾 Layered cache cuts upload time and storage, which matters because GitHub imposes a 10 GB cache limit per repository by default.
@@ -15,9 +17,12 @@ Key improvements over [@actions/cache](https://github.com/actions/cache) and the
 
 ## Version notes
 
-- `v3` is the current line and runs on `node24`. Use it on GitHub-hosted runners and on self-hosted runners that ship Node 24.
-- `v2` runs on `node20` and remains available for runners that do not yet ship Node 24.
-- `v1` runs on `node16`, which GitHub has deprecated. Upgrade by changing the version reference.
+This fork has not published a release yet. Pin a commit SHA.
+
+Upstream ref layout, which this fork inherits: the `v*` tags contain `dist/`, but the newest of them
+(`v3.0.2`) declares `node20`. The `rel/*` tags declare `node24` but contain no `dist/`, so the action
+cannot execute from them. Only the `release` branch head has both, and it is amended and force-pushed
+on every publish.
 
 ## Usage
 
@@ -28,18 +33,12 @@ Note: You can specify `gradle-version: release` to test with the current release
 
 Note: For the [security reasons](https://julienrenaux.fr/2019/12/20/github-actions-security-risk/)
 you might want to use Git SHA rather than branch name or tag name.
-In other words, to avoid accidental tag update, you might want to use
-`burrunan/gradle-cache-action@03c71a8ba93d670980695505f48f49daf43704a6` rather than `burrunan/gradle-cache-action@v1`.
-Please see releases page to find out the commit ids: https://github.com/burrunan/gradle-cache-action/releases
-
-You might use the following references are:
-* `v1`, `v2` -- this is a *moving* qualifier. It points to the latest release among `v1.x`
-* `v1.0`, `v1.1`, ... -- those are fixed versions. They won't change over time
-
-For the best security you might want to use `burrunan/gradle-cache-action@v3` (see the ids at https://github.com/burrunan/gradle-cache-action/releases)
+In other words, to avoid accidental tag update, use a commit SHA rather than a branch or tag name:
+`Donnerbart/gradle-cache-action@404534c34a2faa40430357a3183522a845b04f3b` rather than
+`Donnerbart/gradle-cache-action@release`.
 
 ```yaml
-- uses: burrunan/gradle-cache-action@v3
+- uses: Donnerbart/gradle-cache-action@404534c34a2faa40430357a3183522a845b04f3b
   name: Build PROJECT_NAME
   # Extra environment variables for Gradle execution (regular GitHub Actions feature)
   # Note: env must be outside of "with"
@@ -101,7 +100,7 @@ Reference pull requests that wire `gradle-cache-action` into existing projects:
 The default configuration should suit most of the cases, however, there are extra knobs:
 
 ```yaml
-- uses: burrunan/gradle-cache-action@v3
+- uses: Donnerbart/gradle-cache-action@404534c34a2faa40430357a3183522a845b04f3b
   name: Cache .gradle
   # Extra environment variables for Gradle execution (regular GitHub Actions feature)
   env:
@@ -249,7 +248,7 @@ Note: the `com.gradle.develocity` plugin replaces the older `com.gradle.enterpri
 `gradle/actions/setup-gradle` is the official action and works well for many projects.
 Pick `gradle-cache-action` when one of these matters:
 
-- **100% MIT-licensed.** Since `setup-gradle@v6`, the default `enhanced` caching is provided by the proprietary
+- **100% open source, Apache-2.0.** Since `setup-gradle@v6`, the default `enhanced` caching is provided by the proprietary
   `gradle-actions-caching` library. Switching to its `basic` provider drops most of the advanced caching features.
   `gradle-cache-action` is open source end to end.
 - **Real Gradle remote build cache backend.** The action runs a small proxy that speaks the Gradle build cache protocol

@@ -24,7 +24,8 @@ import com.github.burrunan.hashing.hashFiles
 import octokit.ActionsTrigger
 
 /**
- * Populate cache only when building a default branch, otherwise treat the cache as read-only.
+ * Caches downloaded dependencies. Unlike [localBuildCache], the layering baseline is the bare key
+ * prefix, so a build on any branch can create the first snapshot.
  */
 suspend fun dependenciesCache(
     name: String,
