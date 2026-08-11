@@ -22,24 +22,30 @@ bundle. Fork of `burrunan/gradle-cache-action`.
 Library modules test on Node, `cache-action-entrypoint` tests in a browser. That split is configured
 in the root `build.gradle.kts`, keyed on the module name suffix `-entrypoint`.
 
-CI builds on Java 17. The Kotlin/JS toolchain pins Node 22.0.0 in the root build script.
+CI builds on Java 17. The Node version comes from the Kotlin Gradle plugin default and is downloaded
+into the Gradle user home.
 
 `checkKotlinAbi` and `updateKotlinAbi` exist on every module. No reference dumps are committed.
 
 ## Release mechanics
 
-`main` does not contain `dist/`. The compiled bundle lives only on the `release` branch and on `v*`
-tags. `.github/workflows/main.yml` builds, then on pushes to `main` copies
-`cache-action-entrypoint/build/dist/js/productionExecutable/cache-action-entrypoint.js*` into `dist/`
-on the `release` branch, commits `Publish release from <sha>`, and **amends and force-pushes** that
-branch.
+`dist/` is committed on `main`, and tags point at commits on `main`. Since `main` is never rewritten,
+a pinned commit SHA stays resolvable, which is what a `uses:` reference needs.
 
-Consequences worth knowing before touching the release path:
+Cut a release with `./release.sh v1.2.3`. It validates everything before touching the tree: the tag
+is well formed, unused locally and on origin, the checkout is on `main`, and the working tree is
+clean. Then it builds, copies the bundle into `dist/`, commits only when the bundle changed, and
+creates an annotated tag. Nothing is pushed.
 
-- A commit SHA on `release` can be orphaned by the next publish, so pins against it are not stable.
-- `rel/*` tags point at source commits and contain no `dist/`, so the action cannot execute from them.
-- `v*` tags contain `dist/` but the newest one declares an older Node runtime than `action.yml` on
-  `main`.
+`release.yml` fires on a `v#.#.#` tag. It rebuilds, fails the release when the committed `dist/` does
+not match a fresh build, then creates the GitHub release and moves the major tag.
+
+The bundle is byte-reproducible for a given toolchain, which is what makes that check dependable. It
+does change when Gradle, the Kotlin plugin or a build script changes, so those updates have to carry
+a rebuilt `dist/`.
+
+The source map is deliberately not committed. The runner downloads the repository at the pinned ref
+on every job that uses the action.
 
 ## Architecture
 
