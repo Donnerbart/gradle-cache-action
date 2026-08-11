@@ -1,0 +1,74 @@
+{
+    $schema: "https://docs.renovatebot.com/renovate-schema.json",
+    extends: [
+        "config:recommended",
+        "schedule:weekends",
+        "schedule:automergeNonOfficeHours"
+    ],
+    enabledManagers: [
+        "gradle",
+        "gradle-wrapper",
+        "github-actions",
+        "custom.regex",
+    ],
+    major: {
+        dependencyDashboardApproval: true,
+    },
+    pinDigests: true,
+    labels: [
+        "renovate",
+    ],
+    dependencyDashboardLabels: [
+        "renovate",
+    ],
+    customManagers: [
+        {
+            // the Gradle manager reads the catalog as TOML only, so npm versions in it need
+            // their datasource declared in an annotation
+            customType: "regex",
+            managerFilePatterns: [
+                "/^gradle/libs\\.versions\\.toml$/",
+            ],
+            matchStrings: [
+                "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+[\\w-]+\\s*=\\s*\"(?<currentValue>[^\"]+)\"",
+            ],
+        },
+    ],
+    packageRules: [
+        {
+            matchUpdateTypes: [
+                "minor",
+            ],
+            matchCurrentVersion: "!/^0/",
+            groupName: "all minor dependencies",
+            groupSlug: "all-minor",
+        },
+        {
+            matchUpdateTypes: [
+                "patch",
+            ],
+            matchCurrentVersion: "!/^0/",
+            groupName: "all patch dependencies",
+            groupSlug: "all-patch",
+            automerge: true,
+            platformAutomerge: true,
+        },
+        // GitHub Actions
+        {
+            matchManagers: [
+                "github-actions",
+            ],
+            matchUpdateTypes: [
+                "major",
+                "minor",
+                "patch",
+                "digest"
+            ],
+            groupName: "GitHub Actions dependencies",
+            groupSlug: "github-actions",
+            dependencyDashboardApproval: false,
+            automerge: true,
+            platformAutomerge: true,
+        },
+    ],
+}
