@@ -20,12 +20,6 @@ plugins {
     kotlin("multiplatform") apply false
 }
 
-plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
-    configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec> {
-        version = "22.0.0"
-    }
-}
-
 subprojects {
     if (path != ":wrappers") {
         apply(plugin = "org.jetbrains.kotlin.multiplatform")
