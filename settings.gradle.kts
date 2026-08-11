@@ -14,13 +14,6 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    plugins {
-        kotlin("multiplatform") version "2.3.21"
-        kotlin("plugin.serialization") version "2.3.21"
-    }
-}
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()

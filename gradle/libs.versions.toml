@@ -1,0 +1,36 @@
+[versions]
+kotlin = "2.3.21"
+kotlinx-coroutines = "1.11.0"
+kotlinx-serialization = "1.11.0"
+kotlin-wrappers = "2026.5.6"
+
+# npm packages, declared with npm() in the module scripts because a catalog
+# cannot express npm coordinates
+# renovate: datasource=npm depName=string-argv
+string-argv = "0.3.1"
+# renovate: datasource=npm depName=java-properties
+java-properties = "1.0.2"
+# renovate: datasource=npm depName=@octokit/webhooks
+octokit-webhooks = "13.8.2"
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+[libraries]
+kotlinx-coroutines-bom = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-bom", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-bom = { module = "org.jetbrains.kotlinx:kotlinx-serialization-bom", version.ref = "kotlinx-serialization" }
+kotlin-wrappers-bom = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom", version.ref = "kotlin-wrappers" }
+
+# versions come from the BOMs above
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json" }
+kotlin-actions-cache = { module = "org.jetbrains.kotlin-wrappers:kotlin-actions-cache" }
+kotlin-actions-core = { module = "org.jetbrains.kotlin-wrappers:kotlin-actions-core" }
+kotlin-actions-exec = { module = "org.jetbrains.kotlin-wrappers:kotlin-actions-exec" }
+kotlin-actions-glob = { module = "org.jetbrains.kotlin-wrappers:kotlin-actions-glob" }
+kotlin-actions-http-client = { module = "org.jetbrains.kotlin-wrappers:kotlin-actions-http-client" }
+kotlin-actions-io = { module = "org.jetbrains.kotlin-wrappers:kotlin-actions-io" }
+kotlin-actions-tool-cache = { module = "org.jetbrains.kotlin-wrappers:kotlin-actions-tool-cache" }
+kotlin-node = { module = "org.jetbrains.kotlin-wrappers:kotlin-node" }

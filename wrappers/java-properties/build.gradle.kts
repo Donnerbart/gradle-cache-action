@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         jsMain {
             dependencies {
-                api(npm("java-properties", "1.0.2"))
+                api(npm("java-properties", libs.versions.java.properties.get()))
             }
         }
     }

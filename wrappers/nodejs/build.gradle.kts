@@ -19,7 +19,7 @@ kotlin {
         jsMain {
             dependencies {
                 api(projects.wrappers.js)
-                api("org.jetbrains.kotlin-wrappers:kotlin-node")
+                api(libs.kotlin.node)
             }
         }
     }

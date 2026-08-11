@@ -28,9 +28,9 @@ kotlin {
                 implementation(projects.wrappers.actionsToolkit)
                 implementation(projects.wrappers.nodejs)
                 implementation(projects.wrappers.octokitWebhooks)
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json")
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.kotlinx.serialization.core)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
         jsTest {

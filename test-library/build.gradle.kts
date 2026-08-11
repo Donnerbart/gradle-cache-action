@@ -20,7 +20,7 @@ kotlin {
             dependencies {
                 api(kotlin("test-js"))
                 implementation(projects.wrappers.nodejs)
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
     }

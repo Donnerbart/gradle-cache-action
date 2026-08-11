@@ -19,10 +19,10 @@ kotlin {
         jsMain {
             dependencies {
                 api(projects.wrappers.nodejs)
-                api("org.jetbrains.kotlin-wrappers:kotlin-actions-core")
-                api("org.jetbrains.kotlin-wrappers:kotlin-actions-exec")
-                api("org.jetbrains.kotlin-wrappers:kotlin-actions-glob")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+                api(libs.kotlin.actions.core)
+                api(libs.kotlin.actions.exec)
+                api(libs.kotlin.actions.glob)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
     }

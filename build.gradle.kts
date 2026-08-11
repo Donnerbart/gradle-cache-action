@@ -17,8 +17,14 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
-    kotlin("multiplatform") apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
 }
+
+// the libs accessor is only resolvable in this script's scope, not inside allprojects
+val coroutinesBom = libs.kotlinx.coroutines.bom
+val serializationBom = libs.kotlinx.serialization.bom
+val wrappersBom = libs.kotlin.wrappers.bom
 
 subprojects {
     if (path != ":wrappers") {
@@ -66,9 +72,9 @@ allprojects {
             }
         }
         dependencies {
-            "commonMainApi"(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0"))
-            "commonMainApi"(platform("org.jetbrains.kotlinx:kotlinx-serialization-bom:1.11.0"))
-            "jsMainImplementation"(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:2026.5.6"))
+            "commonMainApi"(platform(coroutinesBom))
+            "commonMainApi"(platform(serializationBom))
+            "jsMainImplementation"(enforcedPlatform(wrappersBom))
             if (project.path != ":test-library") {
                 "jsTestImplementation"(rootProject.projects.testLibrary)
             }

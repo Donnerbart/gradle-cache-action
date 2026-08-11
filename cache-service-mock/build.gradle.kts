@@ -21,8 +21,8 @@ kotlin {
                 implementation(projects.wrappers.actionsCache)
                 implementation(projects.wrappers.actionsToolkit)
                 implementation(projects.wrappers.nodejs)
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core")
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.kotlinx.serialization.core)
             }
         }
     }
