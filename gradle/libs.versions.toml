@@ -7,7 +7,7 @@ kotlin-wrappers = "2026.5.6"
 # npm packages, declared with npm() in the module scripts because a catalog
 # cannot express npm coordinates
 # renovate: datasource=npm depName=string-argv
-string-argv = "0.3.1"
+string-argv = "0.3.2"
 # renovate: datasource=npm depName=java-properties
 java-properties = "1.0.2"
 # renovate: datasource=npm depName=@octokit/webhooks
