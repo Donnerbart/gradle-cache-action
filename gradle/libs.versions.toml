@@ -1,8 +1,8 @@
 [versions]
-kotlin = "2.3.21"
+kotlin = "2.4.10"
 kotlinx-coroutines = "1.11.0"
 kotlinx-serialization = "1.11.0"
-kotlin-wrappers = "2026.5.6"
+kotlin-wrappers = "2026.9.0"
 
 # npm packages, declared with npm() in the module scripts because a catalog
 # cannot express npm coordinates
@@ -11,7 +11,7 @@ string-argv = "0.3.1"
 # renovate: datasource=npm depName=java-properties
 java-properties = "1.0.2"
 # renovate: datasource=npm depName=@octokit/webhooks
-octokit-webhooks = "13.8.2"
+octokit-webhooks = "13.9.1"
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
